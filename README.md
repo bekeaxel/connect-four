@@ -1,2 +1,6 @@
 # connect-four
-Connect-four game where you play against an ai bot
+Play against an ai bot I made. I made the game using pygame. 
+
+prerequisites:
+numpy
+pygame
