@@ -11,31 +11,29 @@ class Minimax():
         """Scoring function, determines the value of different states"""
         value = win.count(player)
         empties = win.count(0)
-        if value == 4:
-            return 100
+        if value == 4: 
+            return 500
         elif value == 3 and empties == 1:
             return 10
         elif value == 2 and empties == 2:
             return 5
         return 0
 
-
     def eval(self, board, player):
         """Evaluates the postion for player p"""
         score = 0
-
         # Test rows
         for i in range(6):
             for j in range(4):
                 score += self._score(list(board[i][j:j + 4]), player)
-                score -= self._score(list(board[i][j:j + 4]), player * -1)
+                score -= 2 * self._score(list(board[i][j:j + 4]), player * -1)
 
         # Test columns on transpose array
         reversed_board = [list(i) for i in zip(*board)]
         for i in range(7):
             for j in range(3):
                 score += self._score(list(reversed_board[i][j:j + 4]), player)
-                score -= self._score(list(reversed_board[i][j:j + 4]), player * -1)
+                score -= 2 * self._score(list(reversed_board[i][j:j + 4]), player * -1)
 
         # Test diagonal
         for i in range(3):
@@ -44,7 +42,7 @@ class Minimax():
                 for k in range(4):
                     l.append(board[i + k][j + k])
                 score += self._score(l, player)
-                score -= self._score(l, player * -1)
+                score -= 2 * self._score(l, player * -1)
 
         reversed_board = np.fliplr(board)
         # Test reverse diagonal
@@ -54,7 +52,7 @@ class Minimax():
                 for k in range(4):
                     l.append(reversed_board[i + k][j + k])
                 score += self._score(l, player)
-                score -= self._score(l, player * -1)
+                score -= 2 * self._score(l, player * -1)
 
         return score
 
